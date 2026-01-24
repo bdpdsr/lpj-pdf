@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PDF</title>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #pdf-viewer { height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="pdf-viewer"></div>
+
+  <script type="module">
+    import EmbedPDF from 'https://cdn.jsdelivr.net/npm/@embedpdf/snippet@2/dist/embedpdf.js';
+
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file');
+
+    if (!file) {
+      document.body.innerHTML = '<p style="font-family: sans-serif; padding: 16px;">Paramètre manquant : ?file=URL_DU_PDF</p>';
+    } else {
+      EmbedPDF.init({
+        type: 'container',
+        target: document.getElementById('pdf-viewer'),
+        src: file,
+        theme: { preference: 'system' }
+      });
+    }
+  </script>
+</body>
+</html>
